@@ -1,6 +1,6 @@
 # convention
 
-A rule the codebase follows — naming, patterns, and where things live.
+A rule, pattern or convention this project follows (naming, formats, repeated approach).
 
 ## All design tokens (ink pink, ink green, near-black ground, off-white text, spacing, radiu…
 

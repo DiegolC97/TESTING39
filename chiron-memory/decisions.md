@@ -1,6 +1,14 @@
 # decision
 
-A choice made and the reasoning behind it — the path taken over the alternatives.
+A technical decision that was made and WHY (which alternatives were discarded).
+
+## Placeholder product copy for Inkwave settled on a tagline 'Splat your ideas onto a shared…
+
+What: Placeholder product copy for Inkwave settled on a tagline 'Splat your ideas onto a shared canvas' and description 'a real-time shared canvas for teams that think fast', used in the hero headline/subheadline and in metadata · Why: needed concrete marketing copy to fill the headline/descriptor/OG-description requirements since none was given · Where: src/lib/site.ts <!-- id: fa979afa-eb6c-46ed-9a02-0ad7f60f97b7-17 -->
+
+## Deployed via static export (`output: 'export'`) to GitHub Pages with a GitHub Actions wor…
+
+What: Deployed via static export (`output: 'export'`) to GitHub Pages with a GitHub Actions workflow, rather than Vercel · Why: no Vercel/Netlify CLI or token existed on the machine, but the GitHub CLI was authenticated and the repo public, so Pages required no new credentials · Where: next.config.ts, .github/workflows deploy workflow · Learned: static export means no server routes exist, so the separate waitlist-capture work order will need a third-party form endpoint, or the project will need to drop `output`/`basePath` and move to Vercel. <!-- id: fa979afa-eb6c-46ed-9a02-0ad7f60f97b7-4 -->
 
 ## Stack pinned to Next.js 16.3 App Router + TypeScript, React 19.2, Tailwind CSS 4.3, pnpm
 
