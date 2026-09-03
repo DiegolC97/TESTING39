@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/*
+ * Ink design system — the single source of every colour, font and motion
+ * value used on the site. Components consume these tokens through Tailwind
+ * utilities (bg-ink-pink, text-cream, font-display …) and never hard-code
+ * raw values. Dark-only: the ground is always near-black so the two inks
+ * read at full saturation.
+ */
+@theme {
+  /* ---- palette ------------------------------------------------------- */
+  --color-*: initial;
+
+  /* Dominant ink: Splatoon hot pink / magenta. */
+  --color-ink-pink: oklch(0.67 0.27 350);
+  --color-ink-pink-deep: oklch(0.52 0.24 348);
+  /* Accent ink: Splatoon lime green. Reserved for the call to action. */
+  --color-ink-green: oklch(0.9 0.27 128);
+  --color-ink-green-deep: oklch(0.72 0.23 130);
+
+  /* Ground: near-black with a violet tint so the inks glow. */
+  --color-ground: oklch(0.15 0.025 300);
+  --color-ground-raised: oklch(0.2 0.03 300);
+  --color-ground-ink: oklch(0.11 0.02 300);
+
+  /* Text on the ground. */
+  --color-cream: oklch(0.98 0.012 90);
+  --color-cream-muted: oklch(0.82 0.015 90);
+
+  /* Utility */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* ---- typography ---------------------------------------------------- */
+  --font-display: var(--font-display), "Arial Black", Impact, sans-serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+
+  /* Fluid type steps (clamp between 360px and 1440px viewports). */
+  --text-hero: clamp(2.25rem, 0.75rem + 6.5vw, 5rem);
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: -0.02em;
+  --text-lede: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-lede--line-height: 1.4;
+
+  /* ---- motion -------------------------------------------------------- */
+  --ease-splat: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-rise: rise 700ms var(--ease-splat) both;
+  --animate-rise-late: rise 700ms var(--ease-splat) 150ms both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ---- shape --------------------------------------------------------- */
+  --radius-blob: 2rem;
+  --shadow-ink: 0 1.5rem 3rem -1rem oklch(0 0 0 / 0.6);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-ground);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    /* Prevent any horizontal scroll from the splat artwork. */
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-ground);
+    color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-ink-green);
+    color: var(--color-ground-ink);
+  }
+
+  /*
+   * One focus style for the whole page. Cream ring with a dark offset so it
+   * stays legible whether it lands on pink ink, lime green or the ground.
+   */
+  :focus-visible {
+    outline: 3px solid var(--color-cream);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--color-ground-ink);
+    border-radius: var(--radius-md);
+  }
+
+  /* Motion is opt-in: only play when the user has not asked for less. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
