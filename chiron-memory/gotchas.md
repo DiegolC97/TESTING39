@@ -15,3 +15,10 @@ A non-obvious pitfall or trap, learned the hard way.
 - **Why**: Social scrapers rely on the extension/content type. Regenerate by temporarily moving the script back into `src/app/`, running `pnpm build`, and copying `out/opengraph-image` over the PNG.
 - **Where**: `src/app/opengraph-image.png`, `scripts/generate-og-image.tsx`.
 - **Learned**: 2026-09-03, landing hero work order.
+
+## The `github-pages` environment rejects deploys from non-`main` branches by default
+
+- **What**: The first Actions deploy auto-creates a `github-pages` environment whose branch policy only allows `main`. A push from a `wo/*` branch builds fine but the deploy job fails with "not allowed to deploy to github-pages due to environment protection rules".
+- **Why**: GitHub seeds the environment with `protected_branches`/default-branch-only rules. The workflow now also triggers on `wo/**` so a work-order branch can be previewed live, which needs custom branch policies `main` and `wo/*` on the environment (set via `gh api .../environments/github-pages/deployment-branch-policies`).
+- **Where**: Repo settings → Environments → github-pages; `.github/workflows/deploy.yml` `on.push.branches`.
+- **Learned**: 2026-09-03, landing hero work order, first deploy attempt (run 33793829918).
